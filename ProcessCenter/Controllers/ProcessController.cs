@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using ProcessCenter.Client;
 using ProcessCenter.Entity;
 using ProcessCenter.Infrastructure;
 using static ProcessCenter.Infrastructure.Dtos;
@@ -11,11 +10,11 @@ namespace ProcessCenter.Controllers
     public class ProcessController : ControllerBase
     {
         private readonly IRepository<Process> repository;
-        private readonly OrderClient orderClient;
-        public ProcessController(IRepository<Process> repository, OrderClient orderClient)
+        private readonly IRepository<Order> orderRepository;
+        public ProcessController(IRepository<Process> repository, IRepository<Order> orderRepository)
         {
             this.repository = repository;
-            this.orderClient = orderClient;
+            this.orderRepository = orderRepository;
         }
  
         [HttpGet]
@@ -26,21 +25,17 @@ namespace ProcessCenter.Controllers
                 return BadRequest();
             }
  
-            var orders = await orderClient.GetOrderAsync();
             var processEntities = await repository.GetAllAsync(a => a.DroneId == droneId);
+            var itemIds = processEntities.Select(a => a.OrderId);
+            var orderEntities = await orderRepository.GetAllAsync(a => itemIds.Contains(a.Id));
  
-            var commonEntities = processEntities.Join(orders, a => a.OrderId, b => b.Id, (a, b) => new { OrderId = b.Id, b.Address, b.Quantity, ProcessId = a.Id, a.DroneId, a.Status, a.AcquiredDate });
- 
-            List<ProcessDto> processDtoList = new List<ProcessDto>();
- 
-            foreach (var ce in commonEntities)
+            var processDtos = processEntities.Select(a =>
             {
-                Process p = new Process();
-                p.Id = ce.ProcessId; p.DroneId = ce.DroneId; p.OrderId = ce.OrderId; p.Status = ce.Status; p.AcquiredDate = ce.AcquiredDate;
-                processDtoList.Add(p.AsDto(ce.Address, ce.Quantity));
-            }
+                var orderItem = orderEntities.Single(b => b.Id == a.OrderId);
+                return a.AsDto(orderItem.Address, orderItem.Quantity);
+            });
  
-            return Ok(processDtoList);
+            return Ok(processDtos);
         }
  
         [HttpPost]

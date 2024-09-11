@@ -27,7 +27,7 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
-builder.Services.AddMongo().AddMongoRepository<Process>("processItems");
+builder.Services.AddMongo().AddMongoRepository<Process>("processItems").AddMongoRepository<Order>("pizzaItems"); 
 
 builder.Services.AddHttpClient<OrderClient>(a =>
 {
