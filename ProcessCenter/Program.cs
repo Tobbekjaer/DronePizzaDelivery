@@ -1,4 +1,10 @@
+using ProcessCenter.Entity;
+using ProcessCenter.MongoDB;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddMongo().AddMongoRepository<Process>("processItems");
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
