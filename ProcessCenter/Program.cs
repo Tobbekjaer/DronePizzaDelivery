@@ -3,6 +3,9 @@ using Polly;
 using ProcessCenter.Client;
 using ProcessCenter.Entity;
 using ProcessCenter.MongoDB;
+using MassTransit;
+using System.Reflection;
+using ProcessCenter.Setting;
 
 var builder = WebApplication.CreateBuilder(args);
 
