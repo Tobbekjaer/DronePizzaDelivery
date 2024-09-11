@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProcessCenter")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6488196621aab93e198f36109619cf849d20a6cb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+44fd130fa7a99e54178eaeae1e684cea949fc8b0")]
 [assembly: System.Reflection.AssemblyProductAttribute("ProcessCenter")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ProcessCenter")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
