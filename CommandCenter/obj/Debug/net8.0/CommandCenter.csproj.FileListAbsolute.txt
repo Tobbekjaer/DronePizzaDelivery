@@ -45,3 +45,7 @@
 /Users/tobiaskjaer/Dropbox/Mac (3)/Documents/Datamatiker/4. semester/Microservices/DronePizzaDelivery/CommandCenter/obj/Debug/net8.0/CommandCenter.pdb
 /Users/tobiaskjaer/Dropbox/Mac (3)/Documents/Datamatiker/4. semester/Microservices/DronePizzaDelivery/CommandCenter/obj/Debug/net8.0/CommandCenter.genruntimeconfig.cache
 /Users/tobiaskjaer/Dropbox/Mac (3)/Documents/Datamatiker/4. semester/Microservices/DronePizzaDelivery/CommandCenter/obj/Debug/net8.0/ref/CommandCenter.dll
+/Users/tobiaskjaer/Dropbox/Mac (3)/Documents/Datamatiker/4. semester/Microservices/DronePizzaDelivery/CommandCenter/bin/Debug/net8.0/MassTransit.dll
+/Users/tobiaskjaer/Dropbox/Mac (3)/Documents/Datamatiker/4. semester/Microservices/DronePizzaDelivery/CommandCenter/bin/Debug/net8.0/MassTransit.Abstractions.dll
+/Users/tobiaskjaer/Dropbox/Mac (3)/Documents/Datamatiker/4. semester/Microservices/DronePizzaDelivery/CommandCenter/bin/Debug/net8.0/MassTransit.RabbitMqTransport.dll
+/Users/tobiaskjaer/Dropbox/Mac (3)/Documents/Datamatiker/4. semester/Microservices/DronePizzaDelivery/CommandCenter/bin/Debug/net8.0/RabbitMQ.Client.dll
