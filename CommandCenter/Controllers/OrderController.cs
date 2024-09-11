@@ -1,5 +1,7 @@
 using CommandCenter.Entity;
 using CommandCenter.Infrastructure;
+using Infrastructure;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
  
 namespace CommandCenter.Controllers
@@ -9,9 +11,12 @@ namespace CommandCenter.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IRepository<Order> repository;
-        public OrderController(IRepository<Order> repository)
+        public readonly IPublishEndpoint publishEndpoint;
+ 
+        public OrderController(IRepository<Order> repository, IPublishEndpoint publishEndpoint)
         {
             this.repository = repository;
+            this.publishEndpoint = publishEndpoint;
         }
  
         [HttpGet]
@@ -42,6 +47,7 @@ namespace CommandCenter.Controllers
                 CreatedDate = DateTimeOffset.UtcNow,
             };
             await repository.CreateAsync(order);
+            await publishEndpoint.Publish(new OrderCreated(order.Id, order.Address, order.Quantity, order.CreatedDate));
             return CreatedAtAction(nameof(GetByIdAsync), new { id = order.Id }, order);
         }
  
@@ -56,6 +62,7 @@ namespace CommandCenter.Controllers
             existingOrder.Address = updateItemDto.Address;
             existingOrder.Quantity = updateItemDto.Quantity;
             await repository.UpdateAsync(existingOrder);
+            await publishEndpoint.Publish(new OrderUpdated(existingOrder.Id, existingOrder.Address, existingOrder.Quantity, existingOrder.CreatedDate));
             return NoContent();
         }
  
@@ -68,6 +75,7 @@ namespace CommandCenter.Controllers
                 return NotFound();
             }
             await repository.RemoveAsync(item.Id);
+            await publishEndpoint.Publish(new OrderDeleted(id));
             return NoContent();
         }
     }
