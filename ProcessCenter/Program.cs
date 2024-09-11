@@ -11,7 +11,7 @@ builder.Services.AddMongo().AddMongoRepository<Process>("processItems");
 
 builder.Services.AddHttpClient<OrderClient>(a =>
 {
-    a.BaseAddress = new Uri("https://localhost:44393");
+    a.BaseAddress = new Uri("http://localhost:5197");
 })
 .AddTransientHttpErrorPolicy(b => b.Or<TimeoutRejectedException>().WaitAndRetryAsync(
     5,
